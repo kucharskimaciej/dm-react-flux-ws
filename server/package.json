@@ -1,0 +1,19 @@
+{
+  "name": "react-flux-ws-datastreamer",
+  "version": "1.0.0",
+  "description": "Serverside app to go along with the project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Maciej Kucharski",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "oauth": "^0.9.13",
+    "q": "^1.4.1",
+    "request": "^2.60.0",
+    "socket.io": "^1.3.6",
+    "utils": "^0.2.2"
+  }
+}
