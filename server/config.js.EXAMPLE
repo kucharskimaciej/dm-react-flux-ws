@@ -1,0 +1,11 @@
+module.exports = {
+  twitter: {
+      consumer_key: "TWITTER_APP_CONSUMER_KEY",
+      application_secret: "TWITTER_APPLICATION_SECRET",
+      token: "TWITTER_USER_ACCESS_TOKEN",
+      token_secret: "TWITTER_USER_TOKEN_SECRET"
+  },
+  server: {
+      port: 9002
+  }
+};
