@@ -9,11 +9,16 @@
   "author": "Maciej Kucharski",
   "license": "MIT",
   "dependencies": {
+    "babel-core": "^5.8.25",
+    "babel-loader": "^5.3.2",
     "lodash": "^3.10.1",
     "oauth": "^0.9.13",
     "q": "^1.4.1",
+    "react": "^0.13.3",
     "request": "^2.60.0",
     "socket.io": "^1.3.6",
-    "utils": "^0.2.2"
+    "utils": "^0.2.2",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.11.0"
   }
 }
