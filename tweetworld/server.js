@@ -20,7 +20,7 @@ compiler.watch({ // watch options:
     aggregateTimeout: 300 // wait so long for more changes
 }, function (err, stats) {
     if(stats.hasErrors()) {
-        console.log(stats.toJSON());
+        console.log(stats);
     } else {
         console.log("recompiled...")
     }
