@@ -34,7 +34,12 @@ var TwitterStream = function(config) {
             var current = chunk.split('\r\n');
 
             if (current.length > 1) {
-                self.emit('tweet:new', JSON.parse(buffer + current[0]));
+                try {
+                    self.emit('tweet:new', JSON.parse(buffer + current[0]));
+                } catch (e) {
+                    // something is wrong with the JSON; skip this tweet.
+                }
+
                 buffer = current[1] || "";
             } else {
                 buffer += chunk;
