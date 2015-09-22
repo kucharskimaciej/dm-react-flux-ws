@@ -12,8 +12,7 @@ io.on('connection', function(socket) {
    if(users.size === 0) {
       stream.on('tweet:new', function(tweet) {
          if(tweet.id && tweet.place) {
-            socket.broadcast.emit("tweet:new", tweet);
-            socket.emit("tweet:new", tweet);
+            io.sockets.emit("tweet:new", tweet);
          }
       });
    }
