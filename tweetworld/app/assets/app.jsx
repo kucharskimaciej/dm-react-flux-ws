@@ -7,3 +7,10 @@ TweetStore.on(AppConstants.EVENTS.ADD, (data) => {
     "use strict";
     console.log(data);
 });
+
+const ApplicationComponent = require('./components/application.jsx');
+
+React.render(
+    <ApplicationComponent />,
+    document.body
+);
