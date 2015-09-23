@@ -30,7 +30,7 @@ const TweetStore = new class extends events.EventEmitter {
 const ActionHandlers = {
     [AppConstants.ACTIONS.ADD_TWEET]: (data) => {
         "use strict";
-        console.log(data);
+        console.log("in action map: ", data);
     }
 };
 

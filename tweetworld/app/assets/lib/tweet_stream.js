@@ -13,7 +13,17 @@ var TweetStream = new class extends events.EventEmitter {
     }
     parse (tweet) {
         "use strict";
-        return _.pick(tweet, 'place', 'id', 'user', 'text');
+        let centerCoords = tweet.place.bounding_box.coordinates[0].reduce(($, co) => {
+            $.lng += co[0]/4;
+            $.lat += co[1]/4;
+
+            return $;
+        }, { lng: 0, lat: 0 });
+
+        let t = _.pick(tweet, 'id', 'user', 'text');
+        t.place = centerCoords;
+
+        return t;
     }
 };
 

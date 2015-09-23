@@ -14,7 +14,6 @@ const AppDispatcher = new class extends flux.Dispatcher {
 
     handleAction (source, action) {
         "use strict";
-        console.log(source, action);
         this.dispatch({ source, action });
     }
 };
