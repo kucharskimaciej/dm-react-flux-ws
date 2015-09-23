@@ -49,6 +49,7 @@ var TwitterStream = function(config) {
 
     var handleEnd = function(stream) {
         console.log('--- END ---');
+        self.start(); // restart stream after it ended
     };
 
     self.start = function() {
