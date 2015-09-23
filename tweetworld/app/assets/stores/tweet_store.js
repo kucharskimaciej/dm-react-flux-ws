@@ -31,6 +31,11 @@ const ActionHandlers = {
     [AppConstants.ACTIONS.ADD_TWEET]: (data) => {
         "use strict";
         console.log("in action map: ", data);
+        TweetStore.add(data);
+    },
+    [AppConstants.ACTIONS.CLEAR_TWEETS]: () => {
+        "use strict";
+        TweetStore.empty();
     }
 };
 
