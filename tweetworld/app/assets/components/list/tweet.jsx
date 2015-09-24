@@ -13,6 +13,7 @@ const Tweet = React.createClass({
     render: function() {
         "use strict";
         let {user: { name }, text} = this.props;
+
         return (
             <article className="tweet">
                 <header className="tweet__header">{ name } says...</header>

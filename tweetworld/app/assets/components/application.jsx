@@ -27,7 +27,6 @@ const App = React.createClass({
     },
     render: function() {
         "use strict";
-        console.log(this);
         let { tweets } = this.state;
 
         return (

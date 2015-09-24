@@ -16,7 +16,7 @@ const TweetList = React.createClass({
     renderItems: function () {
         "use strict";
         let { tweets } = this.props;
-        console.log("tweets", tweets);
+
         return tweets.map((tweet) => {
            return <Tweet text={ tweet.text } user={ tweet.user } />;
         });
