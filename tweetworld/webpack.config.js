@@ -16,7 +16,6 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
-                    sourceMaps: 'inline',
                     optional: ['runtime']
                 }
             }

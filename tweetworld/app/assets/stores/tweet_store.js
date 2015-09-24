@@ -20,7 +20,7 @@ const TweetStore = new class extends events.EventEmitter {
 
     add (item) {
         "use strict";
-        this.items.push(item);
+        this.items.unshift(item);
         this.emit(AppConstants.EVENTS.ADD, item);
         this.emit(AppConstants.EVENTS.CHANGE, this.items);
     }
