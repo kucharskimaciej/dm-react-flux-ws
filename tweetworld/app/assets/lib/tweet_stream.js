@@ -4,6 +4,7 @@ const _ = require('lodash');
 const socket = io("http://localhost:9002");
 const AppConstants = require('./constants');
 const TweetActions = require('../actions/tweet_actions');
+const StatusActions = require('../actions/status_actions');
 
 var TweetStream = new class extends events.EventEmitter {
     addTweet (sourceTweet) {
@@ -31,3 +32,6 @@ socket.on(AppConstants.SOCKET_EVENTS.NEW_TWEET, (tweet) => {
     "use strict";
     TweetStream.addTweet(tweet);
 });
+
+socket.on(AppConstants.SOCKET_EVENTS.CONNECTED, StatusActions.connected);
+socket.on(AppConstants.SOCKET_EVENTS.DISCONNECTED, StatusActions.disconnected);
