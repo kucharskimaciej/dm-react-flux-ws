@@ -32,14 +32,8 @@ const TweetStore = new class extends events.EventEmitter {
 };
 
 const ActionHandlers = {
-    [AppConstants.ACTIONS.ADD_TWEET]: (data) => {
-        "use strict";
-        add(data);
-    },
-    [AppConstants.ACTIONS.CLEAR_TWEETS]: () => {
-        "use strict";
-        empty();
-    }
+    [AppConstants.ACTIONS.ADD_TWEET]: add,
+    [AppConstants.ACTIONS.CLEAR_TWEETS]: empty
 };
 
 AppDispatcher.register((payload) => {
