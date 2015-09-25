@@ -8,7 +8,7 @@ const App = React.createClass({
     getInitialState: function() {
         "use strict";
         return {
-            tweets: TweetStore.items
+            latestTweets: TweetStore.latest(10)
         };
     },
     componentDidMount: function () {
@@ -19,20 +19,20 @@ const App = React.createClass({
         "use strict";
         TweetStore.removeListener(AppConstants.EVENTS.CHANGE, this._onChange);
     },
-    _onChange: function (tweets) {
+    _onChange: function () {
         "use strict";
         this.setState({
-            tweets: tweets.slice(0, 10)
+            latestTweets: TweetStore.latest(10)
         });
     },
     render: function() {
         "use strict";
-        let { tweets } = this.state;
+        let { latestTweets } = this.state;
 
         return (
             <section>
                 <h1> Application </h1>
-                <TweetList tweets={tweets} />
+                <TweetList tweets={latestTweets} />
             </section>
         );
     }
