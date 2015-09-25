@@ -18,7 +18,7 @@ const TweetList = React.createClass({
         let { tweets } = this.props;
 
         return tweets.map((tweet) => {
-           return <Tweet text={ tweet.text } user={ tweet.user } />;
+           return <Tweet key={ tweet.id } text={ tweet.text } user={ tweet.user } />;
         });
     }
 });
