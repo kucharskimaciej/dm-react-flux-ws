@@ -1,21 +1,19 @@
-const flux = require('flux');
-const AppConstants = require("../lib/constants");
+import {Dispatcher} from 'flux';
+import {ACTION_SOURCES} from "../lib/constants";
 
-const AppDispatcher = new class extends flux.Dispatcher {
-    handleViewAction (action) {
+export default new class extends Dispatcher {
+    handleViewAction(action) {
         "use strict";
-        this.handleAction(AppConstants.ACTION_SOURCES.VIEW, action);
+        this.handleAction(ACTION_SOURCES.VIEW, action);
     }
 
-    handleServerAction (action) {
+    handleServerAction(action) {
         "use strict";
-        this.handleAction(AppConstants.ACTION_SOURCES.SERVER, action);
+        this.handleAction(ACTION_SOURCES.SERVER, action);
     }
 
-    handleAction (source, action) {
+    handleAction(source, action) {
         "use strict";
-        this.dispatch({ source, action });
+        this.dispatch({source, action});
     }
-};
-
-module.exports = AppDispatcher;
+}

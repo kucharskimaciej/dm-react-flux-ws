@@ -1,12 +1,13 @@
-const io = require('socket.io-client');
-const events = require('events');
-const _ = require('lodash');
-const socket = io("http://localhost:9002");
-const AppConstants = require('./constants');
-const TweetActions = require('../actions/tweet_actions');
-const StatusActions = require('../actions/status_actions');
+import io from 'socket.io-client';
+import {EventEmitter} from 'events';
+import _ from 'lodash';
 
-var TweetStream = new class extends events.EventEmitter {
+import {SOCKET_EVENTS} from './constants';
+import TweetActions from '../actions/tweet_actions';
+import StatusActions from '../actions/status_actions';
+
+const socket = io("http://localhost:9002");
+const TweetStream = new class extends EventEmitter {
     addTweet (sourceTweet) {
         "use strict";
         let tweet = this.parse(sourceTweet);
@@ -28,10 +29,12 @@ var TweetStream = new class extends events.EventEmitter {
     }
 };
 
-socket.on(AppConstants.SOCKET_EVENTS.NEW_TWEET, (tweet) => {
+socket.on(SOCKET_EVENTS.NEW_TWEET, (tweet) => {
     "use strict";
     TweetStream.addTweet(tweet);
 });
 
-socket.on(AppConstants.SOCKET_EVENTS.CONNECTED, StatusActions.connected);
-socket.on(AppConstants.SOCKET_EVENTS.DISCONNECTED, StatusActions.disconnected);
+socket.on(SOCKET_EVENTS.CONNECTED, StatusActions.connected);
+socket.on(SOCKET_EVENTS.DISCONNECTED, StatusActions.disconnected);
+
+export default TweetStream;

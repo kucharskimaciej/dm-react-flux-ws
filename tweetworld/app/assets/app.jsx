@@ -1,8 +1,7 @@
-const React = require('react');
-const AppConstants = require('./lib/constants');
-const TweetStore = require('./stores/tweet_store');
+import React from 'react';
+import ApplicationComponent from './components/application.jsx';
 
-const ApplicationComponent = require('./components/application.jsx');
+console.log(React, React.render);
 
 React.render(
     <ApplicationComponent />,

@@ -1,46 +1,56 @@
-const React = require('react');
+import React, {Component} from 'react';
+import _ from 'lodash';
 
-const TweetList = require('./list/tweet_list.jsx');
-const TweetStore = require("../stores/tweet_store");
-const Status = require("../stores/status_store");
-const AppConstants = require("../lib/constants");
+import TweetList from './list/tweet_list.jsx';
+import TweetStore from "../stores/tweet_store";
+import Status from "../stores/status_store";
+import {EVENTS} from "../lib/constants";
 
-const App = React.createClass({
-    getInitialState: function() {
+
+class App extends Component {
+    constructor(props) {
         "use strict";
-        return {
+        super(props);
+        this.state = {
             latestTweets: TweetStore.latest(10),
             connected: Status.isConnected
         };
-    },
-    componentDidMount: function () {
+
+        _.bindAll(this, '_onChange');
+    }
+
+    componentDidMount() {
         "use strict";
-        TweetStore.on(AppConstants.EVENTS.CHANGE, this._onChange);
-        Status.on(AppConstants.EVENTS.CHANGE, this._onChange);
-    },
-    componentWillUnmount: function () {
+        TweetStore.on(EVENTS.CHANGE, this._onChange);
+        Status.on(EVENTS.CHANGE, this._onChange);
+    }
+
+    componentWillUnmount() {
         "use strict";
-        TweetStore.removeListener(AppConstants.EVENTS.CHANGE, this._onChange);
-        Status.removeListener(AppConstants.EVENTS.CHANGE, this._onChange);
-    },
-    _onChange: function () {
+        TweetStore.removeListener(EVENTS.CHANGE, this._onChange);
+        Status.removeListener(EVENTS.CHANGE, this._onChange);
+    }
+
+    _onChange() {
         "use strict";
         this.setState({
             latestTweets: TweetStore.latest(10),
             connected: Status.isConnected
         });
-    },
-    render: function() {
+    }
+
+    render() {
         "use strict";
         let { latestTweets, connected } = this.state;
 
         return (
             <section>
                 <h1> Application: { connected ? "connected" : "not connected" } to server </h1>
-                <TweetList tweets={latestTweets} />
+                <TweetList tweets={latestTweets}/>
             </section>
         );
     }
-});
 
-module.exports = App;
+}
+
+export default App;

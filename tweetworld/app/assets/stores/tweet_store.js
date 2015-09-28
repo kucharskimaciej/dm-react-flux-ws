@@ -45,4 +45,4 @@ AppDispatcher.register((payload) => {
     return true;
 });
 
-module.exports = TweetStore;
+export default TweetStore;

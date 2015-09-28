@@ -1,15 +1,15 @@
-const events = require('events');
-const _ = require('lodash');
+import _ from 'lodash';
+import { EventEmitter } from 'events';
 
-const AppConstants = require('../lib/constants');
-const AppDispatcher = require('../dispatchers/app_dispatcher');
+import { ACTIONS, EVENTS } from '../lib/constants';
+import Dispatcher from '../dispatchers/app_dispatcher';
 
 const status = {
     connected: false
 };
 
 
-const StatusStore = new class extends events.EventEmitter {
+const StatusStore = new class extends EventEmitter {
     get isConnected() {
         "use strict";
         return status.connected;
@@ -17,20 +17,20 @@ const StatusStore = new class extends events.EventEmitter {
 };
 
 const ActionHandlers = {
-    [AppConstants.ACTIONS.CONNECTED_TO_SERVER]: () => {
+    [ACTIONS.CONNECTED_TO_SERVER]: () => {
         "use strict";
-        console.log("connected")
+        console.log("connected");
         status.connected = true;
-        StatusStore.emit(AppConstants.EVENTS.CHANGE);
+        StatusStore.emit(EVENTS.CHANGE);
     },
-    [AppConstants.ACTIONS.DISCONNECTED_FROM_SERVER]: () => {
+    [ACTIONS.DISCONNECTED_FROM_SERVER]: () => {
         "use strict";
         status.connected = false;
-        StatusStore.emit(AppConstants.EVENTS.CHANGE);
+        StatusStore.emit(EVENTS.CHANGE);
     }
 };
 
-AppDispatcher.register((payload) => {
+Dispatcher.register((payload) => {
     "use strict";
     if (typeof ActionHandlers[payload.action.actionType] === "function") {
         ActionHandlers[payload.action.actionType](payload.action.data);
@@ -39,4 +39,4 @@ AppDispatcher.register((payload) => {
     return true;
 });
 
-module.exports = StatusStore;
+export default StatusStore;
