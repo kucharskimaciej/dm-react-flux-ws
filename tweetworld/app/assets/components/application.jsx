@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 
 import TweetList from './list/tweet_list.jsx';
+import Map from './map.jsx';
 import TweetStore from "../stores/tweet_store";
 import Status from "../stores/status_store";
 import {EVENTS} from "../lib/constants";
@@ -46,6 +47,7 @@ class App extends Component {
         return (
             <section>
                 <h1> Application: { connected ? "connected" : "not connected" } to server </h1>
+                <Map />
                 <TweetList tweets={latestTweets}/>
             </section>
         );
