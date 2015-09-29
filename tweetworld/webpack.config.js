@@ -19,6 +19,10 @@ module.exports = {
                     optional: ['runtime'],
                     stage: 0
                 }
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css'
             }
         ]
     }

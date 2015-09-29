@@ -29,8 +29,8 @@ class Map extends Component {
         "use strict";
         let opts = _.extend({}, this.props.mapOptions);
         opts.center = opts.center || this.mapCenter;
-
-        let map = new google.maps.Map(React.findDOMNode(this), opts);
+        console.log(this.refs.map.getDOMNode());
+        let map = new google.maps.Map(this.refs.map.getDOMNode(), opts);
 
         this.setState({
             map: map
@@ -61,7 +61,10 @@ class Map extends Component {
 
     render () {
         "use strict";
-        return <section style={styles}></section>
+        return (
+            <section style={containerStyles}>
+                <div ref="map" style={childStyles}></div>
+            </section>);
     }
 }
 Map.defaultProps = {
@@ -77,9 +80,20 @@ Map.defaultProps = {
     }
 };
 
-var styles = {
+var containerStyles = {
     width: 1024,
-    height: 600
+    height: 0,
+    paddingBottom: '60%',
+    position: 'relative'
 };
+
+var childStyles = {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0, left: 0, right: 0, bottom: 0
+};
+
+
 
 export default Map;

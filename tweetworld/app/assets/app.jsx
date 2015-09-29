@@ -1,8 +1,9 @@
 import React from 'react';
 import ApplicationComponent from './components/application.jsx';
+require('normalize.css');
 
 React.render(
-    <ApplicationComponent />,
+    <ApplicationComponent/>,
     document.body
 );
 
