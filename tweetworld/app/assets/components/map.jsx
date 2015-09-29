@@ -10,21 +10,53 @@ class Map extends Component {
         super(props);
 
         this.state = {
-            makers: []
+            makers: [],
+            map: {}
         };
+
+        _.bindAll(this, '_onAdd');
+    }
+    componentWillMount() {
+        "use strict";
+        TweetStore.on(EVENTS.ADD, this._onAdd);
     }
 
+    componentWillUnmount() {
+        "use strict";
+        TweetStore.removeListener(EVENTS.ADD, this._onAdd);
+    }
     componentDidMount(){
         "use strict";
         let opts = _.extend({}, this.props.mapOptions);
         opts.center = opts.center || this.mapCenter;
 
-        this.map = new google.maps.Map(React.findDOMNode(this), opts);
+        let map = new google.maps.Map(React.findDOMNode(this), opts);
+
+        this.setState({
+            map: map
+        });
     }
 
     get mapCenter () {
         "use strict";
-        return new google.maps.LatLng(this.props.mapOptions.mapCenterLat, this.props.mapOptions.mapCenterLng);
+        return this.getLatLng({
+            lat: this.props.mapOptions.mapCenterLat,
+            lng: this.props.mapOptions.mapCenterLng
+        });
+    }
+
+    getLatLng({lat, lng}) {
+        "use strict";
+        return new google.maps.LatLng(lat, lng);
+    }
+
+    _onAdd (tweet) {
+        "use strict";
+        let marker = new google.maps.Marker({
+            position: this.getLatLng(tweet.place),
+            map: this.state.map,
+            title: tweet.text
+        });
     }
 
     render () {
