@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import _ from 'lodash';
 
 import TweetList from './list/tweet_list.jsx';
-import Map from './map.jsx';
+import Map from './map/controller.jsx';
 import TweetStore from "../stores/tweet_store";
 import Status from "../stores/status_store";
 import {EVENTS} from "../lib/constants";

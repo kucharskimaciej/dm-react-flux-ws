@@ -1,21 +1,24 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 
-import TweetStore from "../stores/tweet_store";
-import {EVENTS} from "../lib/constants";
+import TweetStore from "../../stores/tweet_store";
+import {EVENTS} from "../../lib/constants";
 
-class Map extends Component {
+import Map from "./view.jsx";
+
+class MapController extends Component {
     constructor(props) {
         "use strict";
         super(props);
 
         this.state = {
             makers: [],
-            map: {}
+            child: {}
         };
 
-        _.bindAll(this, '_onAdd');
+        _.bindAll(this, '_onAdd', '_expose');
     }
+
     componentWillMount() {
         "use strict";
         TweetStore.on(EVENTS.ADD, this._onAdd);
@@ -25,19 +28,8 @@ class Map extends Component {
         "use strict";
         TweetStore.removeListener(EVENTS.ADD, this._onAdd);
     }
-    componentDidMount(){
-        "use strict";
-        let opts = _.extend({}, this.props.mapOptions);
-        opts.center = opts.center || this.mapCenter;
-        console.log(this.refs.map.getDOMNode());
-        let map = new google.maps.Map(this.refs.map.getDOMNode(), opts);
 
-        this.setState({
-            map: map
-        });
-    }
-
-    get mapCenter () {
+    get mapCenter() {
         "use strict";
         return this.getLatLng({
             lat: this.props.mapOptions.mapCenterLat,
@@ -50,24 +42,38 @@ class Map extends Component {
         return new google.maps.LatLng(lat, lng);
     }
 
-    _onAdd (tweet) {
+    _onAdd(tweet) {
         "use strict";
         let marker = new google.maps.Marker({
             position: this.getLatLng(tweet.place),
-            map: this.state.map,
+            map: this.state.child.map,
             title: tweet.text
+        });
+
+        console.log(marker);
+    }
+
+    _expose(props) {
+        "use strict";
+        console.log("expose", props);
+        this.setState({
+            child: _.extend({}, this.state.child, props)
         });
     }
 
-    render () {
+    render() {
         "use strict";
+        let opts = _.extend({}, {
+            center: this.mapCenter
+        }, this.props.mapOptions);
+
         return (
-            <section style={containerStyles}>
-                <div ref="map" style={childStyles}></div>
+            <section>
+                <Map ref="map" exposeProps={this._expose} mapOptions={opts} />
             </section>);
     }
 }
-Map.defaultProps = {
+MapController.defaultProps = {
     mapOptions: {
         zoom: 2,
         mapCenterLat: 0,
@@ -80,20 +86,4 @@ Map.defaultProps = {
     }
 };
 
-var containerStyles = {
-    width: 1024,
-    height: 0,
-    paddingBottom: '60%',
-    position: 'relative'
-};
-
-var childStyles = {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0, left: 0, right: 0, bottom: 0
-};
-
-
-
-export default Map;
+export default MapController;
