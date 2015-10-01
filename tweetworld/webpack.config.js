@@ -21,6 +21,10 @@ module.exports = {
                 }
             },
             {
+                test: /\.styl$/,
+                loader: 'style!css!stylus'
+            },
+            {
                 test: /\.css$/,
                 loader: 'style!css'
             }

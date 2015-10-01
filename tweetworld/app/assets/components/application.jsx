@@ -7,7 +7,6 @@ import TweetStore from "../stores/tweet_store";
 import Status from "../stores/status_store";
 import {EVENTS} from "../lib/constants";
 
-import * as styles from '../styles/app.js';
 
 class App extends Component {
     constructor(props) {
@@ -46,7 +45,7 @@ class App extends Component {
         let { latestTweets, connected } = this.state;
 
         return (
-            <section style={styles.applicationComponent}>
+            <section>
                 <h1> Application: { connected ? "connected" : "not connected" } to server </h1>
                 <Map />
                 <TweetList tweets={latestTweets}/>
